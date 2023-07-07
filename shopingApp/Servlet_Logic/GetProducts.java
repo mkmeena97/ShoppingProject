@@ -39,18 +39,23 @@ public class GetProducts extends HttpServlet {
 		
 		try
 		{
-			ps=con.prepareStatement("select p_name from product where cat_id=?");
+			ps=con.prepareStatement("select * from product where cat_id=?");
 			ps.setInt(1, cid);
-			
 			rs = ps.executeQuery();
 			
+			out.println("<form action='addtocart' method='post'>");
+			out.println("Select Product : ");
+			out.println("<select name='selectedProduct'>");
 			
 				while(rs.next())
 				{
-					out.println("<p>"+rs.getString(1)+"</p></br>");
+					out.println("<option value ='"+rs.getInt(1)+"'>"+rs.getString(2)+"</option>");
 				}
 			
-			
+			out.println("/<select>");
+			out.println("/<br><input type='submit' value='Add To Cart'/>");
+			out.println("</form>");
+	
 			
 			
 		} 
